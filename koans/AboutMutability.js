@@ -3,8 +3,8 @@ describe("About Mutability", function() {
   it("should expect object properties to be public and mutable", function () {
     var aPerson = {firstname: "John", lastname: "Smith" };
     aPerson.firstname = "Alan";
-
-    expect(aPerson.firstname).toBe(FILL_ME_IN);
+    // hardcoded props and then changed
+    expect(aPerson.firstname).toBe("Alan");
   });
 
   it("should understand that constructed properties are public and mutable", function () {
@@ -13,10 +13,11 @@ describe("About Mutability", function() {
       this.firstname = firstname;
       this.lastname = lastname;
     }
+    // above is our constructor func for Person
     var aPerson = new Person ("John", "Smith");
     aPerson.firstname = "Alan";
-
-    expect(aPerson.firstname).toBe(FILL_ME_IN);
+    // we construct then change his firstname
+    expect(aPerson.firstname).toBe("Alan");
   });
 
   it("should expect prototype properties to be public and mutable", function () {
@@ -30,13 +31,13 @@ describe("About Mutability", function() {
     };
 
     var aPerson = new Person ("John", "Smith");
-    expect(aPerson.getFullName()).toBe(FILL_ME_IN);
-
+    expect(aPerson.getFullName()).toBe("John Smith");
+    // straight up concat with a space btwn
     aPerson.getFullName = function () {
       return this.lastname + ", " + this.firstname;
     };
-
-    expect(aPerson.getFullName()).toBe(FILL_ME_IN);
+    // concat with a comma and space in btwn
+    expect(aPerson.getFullName()).toBe("Smith, John");
   });
 
   it("should know that variables inside a constructor and constructor args are private", function () {
@@ -54,15 +55,15 @@ describe("About Mutability", function() {
     aPerson.lastname = "Andrews";
     aPerson.fullName = "Penny Andrews";
 
-    expect(aPerson.getFirstName()).toBe(FILL_ME_IN);
-    expect(aPerson.getLastName()).toBe(FILL_ME_IN);
-    expect(aPerson.getFullName()).toBe(FILL_ME_IN);
-
+    expect(aPerson.getFirstName()).toBe('John');
+    expect(aPerson.getLastName()).toBe('Smith');
+    expect(aPerson.getFullName()).toBe('John Smith');
+    // getName funcs return the constructor vars, not our outside reassigns
     aPerson.getFullName = function () {
       return aPerson.lastname + ", " + aPerson.firstname;
     };
-
-    expect(aPerson.getFullName()).toBe(FILL_ME_IN);
+    // bc we are returning the hardcoded vals from 54, 55, 56, we get those vals and not the constructor args
+    expect(aPerson.getFullName()).toBe('Andrews, Penny');
   });
 
 });
