@@ -6,7 +6,8 @@ describe("About Functions", function() {
       return a + b;
     }
 
-    expect(add(1, 2)).toBe(FILL_ME_IN);
+    expect(add(1, 2)).toBe(3);
+    // shows how we declare functions
   });
 
   it("should know internal variables override outer variables", function () {
@@ -21,9 +22,12 @@ describe("About Functions", function() {
       return message;
     }
 
-    expect(getMessage()).toBe(FILL_ME_IN);
-    expect(overrideMessage()).toBe(FILL_ME_IN);
-    expect(message).toBe(FILL_ME_IN);
+    expect(getMessage()).toBe("Outer");
+    // called on not overriden msg
+    expect(overrideMessage()).toBe("Inner");
+    // called on the function where we do the override
+    expect(message).toBe('Outer');
+    // calls on the global var
   });
 
   it("should have lexical scoping", function () {
@@ -35,7 +39,8 @@ describe("About Functions", function() {
       }
       return childfunction();
     }
-    expect(parentfunction()).toBe(FILL_ME_IN);
+    expect(parentfunction()).toBe("local");
+    // we call parent. inside parent, we return the called value of child. the return of child is the scoped var.
   });
 
   it("should use lexical scoping to synthesise functions", function () {
@@ -52,7 +57,7 @@ describe("About Functions", function() {
     var mysteryFunction3 = makeMysteryFunction(3);
     var mysteryFunction5 = makeMysteryFunction(5);
 
-    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(FILL_ME_IN);
+    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(23);
   });
 
   it("should allow extra function arguments", function () {
@@ -60,15 +65,15 @@ describe("About Functions", function() {
     function returnFirstArg(firstArg) {
       return firstArg;
     }
-
-    expect(returnFirstArg("first", "second", "third")).toBe(FILL_ME_IN);
+    // only takes one so test below is deceptive
+    expect(returnFirstArg("first", "second", "third")).toBe('first');
 
     function returnSecondArg(firstArg, secondArg) {
       return secondArg;
     }
 
-    expect(returnSecondArg("only give first arg")).toBe(FILL_ME_IN);
-
+    expect(returnSecondArg("only give first arg")).toBe(undefined);
+    // no second passed so returns undefined
     function returnAllArgs() {
       var argsArray = [];
       for (var i = 0; i < arguments.length; i += 1) {
@@ -77,7 +82,8 @@ describe("About Functions", function() {
       return argsArray.join(",");
     }
 
-    expect(returnAllArgs("first", "second", "third")).toBe(FILL_ME_IN);
+    expect(returnAllArgs("first", "second", "third")).toBe("first,second,third");
+    // joins with just , no spaces. .join() joins an array. 
   });
 
   it("should pass functions as values", function () {
@@ -91,10 +97,10 @@ describe("About Functions", function() {
     };
 
     var praiseSinger = { givePraise: appendRules };
-    expect(praiseSinger.givePraise("John")).toBe(FILL_ME_IN);
+    expect(praiseSinger.givePraise("John")).toBe("John rules!");
 
     praiseSinger.givePraise = appendDoubleRules;
-    expect(praiseSinger.givePraise("Mary")).toBe(FILL_ME_IN);
-
+    expect(praiseSinger.givePraise("Mary")).toBe('Mary totally rules!');
+    // takes in w/e the func does and appends with the name from givePraise
   });
 });
