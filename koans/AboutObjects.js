@@ -2,18 +2,20 @@ describe("About Objects", function () {
 
   describe("Properties", function () {
     var megalomaniac;
-
+    // creates megalomaniac as var
     beforeEach(function () {
        megalomaniac = {  mastermind: "Joker", henchwoman: "Harley" };
     });
+    // reassigns with beforeEach func
 
     it("should confirm objects are collections of properties", function () {
-      expect(megalomaniac.mastermind).toBe(FILL_ME_IN);
+      expect(megalomaniac.mastermind).toBe('Joker');
     });
 
     it("should confirm that properties are case sensitive", function () {
-      expect(megalomaniac.henchwoman).toBe(FILL_ME_IN);
-      expect(megalomaniac.henchWoman).toBe(FILL_ME_IN);
+      expect(megalomaniac.henchwoman).toBe('Harley');
+      expect(megalomaniac.henchWoman).toBe(undefined);
+      // see capitalization of henchwoman vs. henchWoman -- camelCase is important!!
     });
   });
 
@@ -29,7 +31,8 @@ describe("About Objects", function () {
     };
 
     var battleCry = megalomaniac.battleCry(4);
-    expect(FILL_ME_IN).toMatch(battleCry);
+    expect('They are Pinky and the Brain Brain Brain Brain Brain').toMatch(battleCry);
+    // returns joined string made of concats and iterated array items 
   });
 
   it("should confirm that when a function is attached to an object, 'this' refers to the object", function () {
@@ -44,8 +47,9 @@ describe("About Objects", function () {
       }
     };
 
-    expect(currentYear).toBe(FILL_ME_IN);
-    expect(megalomaniac.calculateAge()).toBe(FILL_ME_IN);
+    expect(currentYear).toBe(2019);
+    expect(megalomaniac.calculateAge()).toBe(49);
+    // uses Date() keyword and subtraction to calc. this will always refer to what you're acting on. 
   });
 
   describe("'in' keyword", function () {
@@ -62,27 +66,29 @@ describe("About Objects", function () {
 
       var hasBomb = "theBomb" in megalomaniac;
 
-      expect(hasBomb).toBe(FILL_ME_IN);
+      expect(hasBomb).toBe(true);
+      // in keyword will make sure that a prop is in an object.
     });
 
     it("should not have the detonator however", function () {
 
       var hasDetonator = "theDetonator" in megalomaniac;
 
-      expect(hasDetonator).toBe(FILL_ME_IN);
+      expect(hasDetonator).toBe(false);
+      // or in this case, making sure it doesn't have the prop. in checks props of objs basically
     });
   });
 
   it("should know that properties can be added and deleted", function () {
     var megalomaniac = { mastermind : "Agent Smith", henchman: "Agent Smith" };
 
-    expect("secretary" in megalomaniac).toBe(FILL_ME_IN);
+    expect("secretary" in megalomaniac).toBe(false);
 
-    megalomaniac.secretary = "Agent Smith";
-    expect("secretary" in megalomaniac).toBe(FILL_ME_IN);
+    megalomaniac.secretary = "Agent Smith"; //adds prop .secretary here so next line is now true
+    expect("secretary" in megalomaniac).toBe(true);
 
-    delete megalomaniac.henchman;
-    expect("henchman" in megalomaniac).toBe(FILL_ME_IN);
+    delete megalomaniac.henchman; //removes prop .henchman here
+    expect("henchman" in megalomaniac).toBe(false);
   });
 
 
@@ -96,14 +102,16 @@ describe("About Objects", function () {
       var colouredCircle = new Circle(5);
       colouredCircle.colour = "red";
 
-      expect(simpleCircle.colour).toBe(FILL_ME_IN);
-      expect(colouredCircle.colour).toBe(FILL_ME_IN);
+      // next line is undefined bc simpleCircle doesn't have a colour prop, only colouredCircle does
+      expect(simpleCircle.colour).toBe(undefined);
+      expect(colouredCircle.colour).toBe('red');
 
       Circle.prototype.describe = function () {
         return "This circle has a radius of: " + this.radius;
       };
 
-      expect(simpleCircle.describe()).toBe(FILL_ME_IN);
-      expect(colouredCircle.describe()).toBe(FILL_ME_IN);
+      // adds .describe to the Circle prototype func and uses concatenation to return below strings
+    expect(simpleCircle.describe()).toBe("This circle has a radius of: 10");
+    expect(colouredCircle.describe()).toBe("This circle has a radius of: 5");
   });
 });
